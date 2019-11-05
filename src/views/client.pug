@@ -1,0 +1,59 @@
+extends layout
+
+block content
+    h1 #{title}
+    div.container
+        div.row
+            .col-md-6.col-md-offset-3
+                h1.display-4.m-b-2 AJOUT DE CLIENT
+                form(method='POST' action='http://localhost:3000')
+                    div.form-group
+                        label(for='nom') NOM:
+                        input#nom.form-control(type='text' placeholder='votre nom' name='nom')
+                    div.form-group
+                        label(for='prenon') PRENOM:
+                        input#prenom.form-control(type='text' placeholder='votre prenom' name='prenom')
+                    div.form-group
+                        label(for='dteNce') DATE-NAISSANCE:
+                        input#dteNce.form-control(type='date' name='date_naissance')
+                    div.form-group
+                        label(for='civilite') CIVILITE:
+                        input#civilite.form-control(type='radio', name='civilite', value='M')
+                        input#civilite.form-control(type='radio', name='civilite', value='F')
+                    div.form-group
+                        label(for='number') NUMERO:
+                        input#number.form-control(type='number' name='numero')
+                    div.form-group
+                        label(for='adresse') ADRESSE:
+                        input#adresse.form-control(type='text' placeholder='votre adresse' name='adresse')
+                    div.form-group
+                        label(for='ville') VILLE:
+                        input#ville.form-control(type="text" list="liste-ville" name="ville")
+                        datalist(id="liste-ville")
+                            label(for="adresse") sélectionner dans la liste
+                            select(id="listeville" name="ville")
+                                //- each ville, i in villes
+                                //-     option(value=ville.id_ville) #{ville.nom}
+                    button.btn.btn-primary(type='submit') Ajouter le Client
+                    br
+                    br
+        div.row.text-center
+            table.table
+                thead.thead-dark
+                    tr
+                        th NOM
+                        th PRENOM
+                        th ADRESSE
+                        th NUMERO
+                        th COMMANDE
+                tbody
+                    each client, i in clients
+                        tr 
+                            td= client.nom
+                            td= client.prenom 
+                            td= client.adresse 
+                            td= client.numero
+                            td
+                                button(id=client.id_client onclick="cmdeDetails(this.id, 'http://localhost:3000/client/commande/')") detail-commande
+    script
+        include commande.js

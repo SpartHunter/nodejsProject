@@ -1,0 +1,25 @@
+extends layout
+
+block content
+    h1 #{title}
+    div.container
+        div.row.text-center
+            table.table
+                thead.thead-dark
+                    tr
+                        th NUMERO
+                        th DATE-COMMANDE
+                        th QUANTITE
+                        th PRIX-UNITAIRE
+                        th TAUX-REMISE
+                tbody
+                    each commande, i in commandes
+                        tr 
+                            td= commande.numero
+                            td= commande.date_commande 
+                            td= commande.prix_unitaire 
+                            td= commande.taux_remise
+                            td
+                                button(id=commande.id_produit onclick="prodDetails(this.id, 'http://localhost:3000/client/commande/')") detail-produits
+    script
+        include commande.js
